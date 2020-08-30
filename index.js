@@ -1,6 +1,7 @@
 const http = require('http');
 require('dotenv').config();
 const nanoid = require('nanoid').nanoid;
+const logger = require('./logger.js');
 
 const DELAY = process.env.DELAY || 1000;
 const LIMIT = process.env.LIMIT || 10;
@@ -30,23 +31,6 @@ http.createServer((req, res) => {
 }).listen(PORT, () => {
   console.log(`server start on port ${PORT}`);
 });
-
-const logger = (id, tick) => {
-  const date = new Date();
-  const options = {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    weekday: 'long',
-    timezone: 'UTC',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-  };
-  const currentTime = date.toLocaleString('ru', options);
-  console.log(`User: ${id}: ${currentTime}, tick: ${tick}`);
-  return currentTime;
-};
 
 const run = () => {
   Object.values(connections).map((user) => {
